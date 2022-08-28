@@ -1,10 +1,19 @@
 import { Participant } from "@components/Participant";
 import { EmptyParticipant } from "@components/Participant/EmptyParticipant";
 import { Label, Separator } from "@global/styles/global";
+
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
 import { useState } from "react";
 import { Alert, FlatList, Keyboard } from "react-native";
 import { fake } from "./fake";
 import { Button, Container, Form, Input } from "./styles";
+
+function capitalizeFirstLetter(str: string) {
+  const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+  return capitalized;
+}
 
 type ParticipantProps = typeof fake.data[0];
 
@@ -60,7 +69,11 @@ export function Home() {
           Nome do evento
         </Label>
         <Label weight="regular" size={16} color="gray400">
-          Sexta, 4 de Novembro de 2022
+          {capitalizeFirstLetter(
+            format(new Date(), "iiii, dd 'de' LLLL 'de' yyyy", {
+              locale: ptBR,
+            })
+          )}
         </Label>
         <Separator height={36} />
         <Form>
